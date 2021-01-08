@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import {Form, Container, Button} from "react-bootstrap"
 import logo from "../../logo.svg"
 import "./index.css"
+import { useHistory } from 'react-router-dom';
 
 const Login = () => {
 
+
+
+    let history = useHistory('');
     // looks like public string email {get, set};
     const [email, setemail] = useState('');
     const [senha, setsenha] = useState('');
@@ -30,12 +34,14 @@ const logar = (event) => {
     .then(response => {
         if (response.ok){
             //Faça isso
+            return response.json()
         }
         alert("Dados Inválidos")
     })
     .then(data =>{
         console.log(data);
         localStorage.setItem('token-gerir', data.token);
+        history.push('/tarefa');
     })
 }
 
